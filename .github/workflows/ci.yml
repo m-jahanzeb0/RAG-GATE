@@ -10,31 +10,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:16
-        env:
-          POSTGRES_USER: raggate
-          POSTGRES_PASSWORD: raggate_secret
-          POSTGRES_DB: raggate
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-      redis:
-        image: redis:7-alpine
-        ports:
-          - 6379:6379
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -57,26 +32,12 @@ jobs:
           cd rag_gate
           pip install -r requirements.txt
 
-      - name: Run migrations
+      - name: Run Tests
         env:
-          DATABASE_URL: postgres://raggate:raggate_secret@localhost:5432/raggate
-          REDIS_URL: redis://localhost:6379/0
-          CELERY_BROKER_URL: redis://localhost:6379/1
-          CELERY_RESULT_BACKEND: redis://localhost:6379/2
-          SECRET_KEY: ci-test-secret-key-do-not-use-in-production
-          OPENAI_API_KEY: sk-test-key
-        run: |
-          cd rag_gate
-          python manage.py migrate
-
-      - name: Run tests
-        env:
-          DATABASE_URL: postgres://raggate:raggate_secret@localhost:5432/raggate
-          REDIS_URL: redis://localhost:6379/0
-          CELERY_BROKER_URL: redis://localhost:6379/1
-          CELERY_RESULT_BACKEND: redis://localhost:6379/2
-          SECRET_KEY: ci-test-secret-key-do-not-use-in-production
-          OPENAI_API_KEY: sk-test-key
+          SECRET_KEY: "ci-test-key-checksum-safeguard"
+          DEBUG: "False"
+          OPENAI_API_KEY: "mock-key"
+          ANTHROPIC_API_KEY: "mock-key"
         run: |
           cd rag_gate
           python -m pytest tests/ --ds=core.test_settings -v
