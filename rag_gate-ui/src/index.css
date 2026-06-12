@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-glass-border;
+  }
+
+  body {
+    @apply bg-surface text-gray-100;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 158, 255, 0.06), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(167, 139, 250, 0.04), transparent),
+      radial-gradient(ellipse 50% 30% at 20% 60%, rgba(34, 211, 238, 0.03), transparent);
+    min-height: 100vh;
+  }
+
+  ::selection {
+    @apply bg-accent-blue/30 text-white;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-glass-mid backdrop-blur-2xl border border-glass-border shadow-glass rounded-2xl;
+  }
+
+  .glass-card-sm {
+    @apply bg-glass-light backdrop-blur-xl border border-glass-border shadow-glass-sm rounded-xl;
+  }
+
+  .glass-input {
+    @apply bg-glass-light backdrop-blur-lg border border-glass-border rounded-xl
+           px-4 py-3 text-white placeholder-gray-500
+           focus:outline-none focus:border-accent-blue/50 focus:ring-1 focus:ring-accent-blue/30
+           transition-all duration-200;
+  }
+
+  .glass-button {
+    @apply bg-accent-blue/20 hover:bg-accent-blue/30 backdrop-blur-xl
+           border border-accent-blue/30 rounded-xl px-6 py-3
+           text-accent-blue font-medium
+           transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-accent-blue/40;
+  }
+
+  .stat-value {
+    @apply text-3xl font-semibold tracking-tight text-white;
+  }
+
+  .stat-label {
+    @apply text-sm font-medium text-gray-400;
+  }
+}
