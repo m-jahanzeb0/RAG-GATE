@@ -54,6 +54,11 @@ rag_gate-ui/.vite/
 htmlcov/
 .pytest_cache/
 *.cover
+coverage.xml
+.coverage.*
+
+# TypeScript build info
+tsconfig.tsbuildinfo
 
 # Celery
 celerybeat-schedule

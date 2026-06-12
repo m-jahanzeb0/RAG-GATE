@@ -1,1 +1,0 @@
-{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/api/client.ts","./src/components/authgate.tsx","./src/components/dashboard.tsx","./src/components/herometrics.tsx","./src/components/providerchart.tsx","./src/components/usagechart.tsx","./src/types/analytics.ts"],"version":"5.9.3"}
